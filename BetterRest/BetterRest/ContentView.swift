@@ -53,14 +53,18 @@ struct ContentView: View {
         do {
             let config = MLModelConfiguration()
             let model = try SleepCalculator(configuration: config)
-            
+//            SleepCalculator erstellte Datei in CoreML
             let components = Calendar.current.dateComponents([.hour, .minute], from: wakeUp)
             let hour = (components.hour ?? 0) * 60 * 60
             let minute = (components.minute ?? 0) * 60
             
             let prediction = try model.prediction(wake: Double(hour + minute), estimatedSleep: sleepAmount, coffee: Double(coffeeAmount))
+//            wake: aus der SleepCalculator datei
+//            estimatedSleep: aus der SleepCalculator datei
+//            coffee: aus der SleepCalculator datei
             
             let sleepTime = wakeUp - prediction.actualSleep
+//            actualSleep: aus der SleepCalculator datei
             alertTitle = "Your ideal bedtime is..."
             alertessage = sleepTime.formatted(date: .omitted, time: .shortened)
             
